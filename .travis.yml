@@ -154,7 +154,7 @@ cache:
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then 
       if [[ "${TRAVIS_CPU_ARCH}" == "arm64" ]]; then
-        docker build -t lief/manylinux1_aarch64 .; 
+        docker build -t lief/manylinux2014_aarch64 .; 
       else
         docker build -t lief/manylinux1_x86_64 .; 
       fi
@@ -206,7 +206,7 @@ install:
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
       if [[ "${TRAVIS_CPU_ARCH}" == "arm64" ]]; then
-        docker run --name lief_$PYTHON_VERSION -e PYTHON_BINARY=$PYTHON_BINARY -e CCACHE_DIR=/ccache -v $HOME/.ccache:/ccache lief/manylinux1_aarch64 bash -c '$PYTHON_BINARY setup.py --lief-test --sdk build -j8 bdist_wheel --dist-dir wheel_stage && auditwheel repair -w dist --plat manylinux1_aarch64 wheel_stage/*.whl ' && docker cp lief_$PYTHON_VERSION:/src/dist/ . && docker cp lief_$PYTHON_VERSION:/src/build/ .; 
+        docker run --name lief_$PYTHON_VERSION -e PYTHON_BINARY=$PYTHON_BINARY -e CCACHE_DIR=/ccache -v $HOME/.ccache:/ccache lief/manylinux2014_aarch64 bash -c '$PYTHON_BINARY setup.py --lief-test --sdk build -j8 bdist_wheel --dist-dir wheel_stage && auditwheel repair -w dist --plat manylinux1_aarch64 wheel_stage/*.whl ' && docker cp lief_$PYTHON_VERSION:/src/dist/ . && docker cp lief_$PYTHON_VERSION:/src/build/ .; 
       else
         docker run --name lief_$PYTHON_VERSION -e PYTHON_BINARY=$PYTHON_BINARY -e CCACHE_DIR=/ccache -v $HOME/.ccache:/ccache lief/manylinux1_x86_64 bash -c '$PYTHON_BINARY setup.py --lief-test --sdk build -j8 bdist_wheel --dist-dir wheel_stage && auditwheel repair -w dist --plat manylinux1_x86_64 wheel_stage/*.whl ' && docker cp lief_$PYTHON_VERSION:/src/dist/ . && docker cp lief_$PYTHON_VERSION:/src/build/ .; 
       fi
