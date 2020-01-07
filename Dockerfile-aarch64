@@ -4,7 +4,8 @@ RUN yum update -y \
   && yum install -y gcc gcc-c++ \
   && yum clean all
 
-RUN /opt/python/cp37-cp37m/bin/pip install scikit-build cmake==3.13.2
+RUN /opt/python/cp37-cp37m/bin/pip install scikit-build
+RUN /opt/python/cp37-cp37m/bin/pip install cmake==3.13.2
 ENV PATH=$PATH:/opt/python/cp37-cp37m/bin/
 
 ENV CC=/usr/bin/gcc
