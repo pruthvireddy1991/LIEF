@@ -1,0 +1,15 @@
+FROM quay.io/pypa/manylinux2014_aarch64:latest
+
+RUN yum update -y \
+  && yum install gcc g++ \
+  && yum clean all
+
+RUN /opt/python/cp37-cp37m/bin/pip install scikit-build cmake==3.13.2
+ENV PATH=$PATH:/opt/python/cp37-cp37m/bin/
+
+ENV CC=/usr/bin/gcc
+ENV CXX=/usr/bin/g++
+ENV CXXFLAGS=-static-libstdc++
+
+COPY . /src
+WORKDIR /src
