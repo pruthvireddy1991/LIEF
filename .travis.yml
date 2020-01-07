@@ -154,7 +154,7 @@ cache:
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then 
       if [[ "${TRAVIS_CPU_ARCH}" == "arm64" ]]; then
-        docker build -t lief/manylinux2014_aarch64 .; 
+        docker build -f Dockerfile-aarch64 -t lief/manylinux2014_aarch64 .; 
       else
         docker build -t lief/manylinux1_x86_64 .; 
       fi
