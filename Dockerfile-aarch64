@@ -11,8 +11,8 @@ RUN mkdir /tmp/dl \
     && cd cmake-3.13.3 && ./bootstrap --prefix=/usr/local && make && make install \
     && export PATH=/usr/local/bin:$PATH:/opt/python/cp37-cp37m/bin/
 
-ENV CC=/usr/bin/gcc
-ENV CXX=/usr/bin/g++
+ENV CC=gcc
+ENV CXX=g++
 ENV CXXFLAGS=-static-libstdc++
 
 COPY . /src
