@@ -1,15 +1,14 @@
 FROM quay.io/pypa/manylinux2014_aarch64:latest
 
 RUN yum update -y \
-  && yum install -y wget \
+  && yum install -y wget\
   && yum clean all
-  
-RUN mkdir /tmp/dl \
-    && cd /tmp/dl \
-    && wget https://cmake.org/files/v3.13/cmake-3.13.3.tar.gz \
-    && tar -zxvf cmake-3.13.3.tar.gz \
-    && cd cmake-3.13.3 && ./bootstrap --prefix=/usr/local && make && make install \
-    && export PATH=/usr/local/bin:$PATH:/opt/python/cp37-cp37m/bin/
+
+RUN yum install -y epel-release \
+  && yum install -y jsoncpp cmake3 \
+  && ln -sf /usr/bin/cmake3 /usr/bin/cmake
+
+ENV PATH=$PATH:/opt/python/cp37-cp37m/bin/
 
 ENV CC=gcc
 ENV CXX=g++
